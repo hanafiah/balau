@@ -25,13 +25,15 @@ function generalAutoload($className) {
     }
 }
 
-function subclassAutoload($className) {
+function modulesAutoload($className) {
+    //convert class name with underscode to DIRECTORY_SEPARATOR
+    $className = str_replace('_', DIRECTORY_SEPARATOR, $className);
     $filename = APP."modules/" . $className . ".php";
     if (is_readable($filename)) {
         require $filename;
     }
 }
 
-spl_autoload_register("generalAutoload");
-spl_autoload_register("subclassAutoload");
+//spl_autoload_register("generalAutoload");
+spl_autoload_register("modulesAutoload");
 spl_autoload_register("psr0");

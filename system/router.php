@@ -10,7 +10,7 @@ namespace System;
 
 use Closure;
 
-class Route {
+class Router {
 
     /**
      * store all request info
@@ -67,13 +67,6 @@ class Route {
     }
 
     public function match($route, $uri) {
-//        $search= array_keys($this->optional);
-//        $replace= array_values($this->optional);
-//        $route = str_replace($search, $replace, $route, $count);
-//        if ($count > 0) {
-//            $route .= str_repeat(')?', $count);
-//        }
-
         $search = array_keys($this->patterns);
         $replace = array_values($this->patterns);
         $route = str_replace($search, $replace, $route);
@@ -108,27 +101,16 @@ class Route {
                 break;
         }
 
-//        echo '<pre>';
-//        print_r($this->_routes);
-//        echo '</pre>';
-
         foreach ($this->_routes['GET'] as $key => $callback) {
-            //echo $row;
             $match = $this->match($key, $this->_request['path']);
             if ($match !== false) {
                 if (is_string($callback)) {
-//                    echo 'string : '. $callback;
                     Controller::call($callback,$match);
                     //call_user_func_array(array($callback),$match);
                 } elseif ($callback instanceof Closure) {
                     //echo 'closure';
                     call_user_func_array($callback,$match);
                 }
-//                echo '"' . $key . '"', ' -> ', '"' . $this->_request['path'] . '"';
-//                echo '<br/>match<hr>';
-//                echo '<pre>';
-//                print_r($match);
-//                echo '</pre>';
             }
         }
 

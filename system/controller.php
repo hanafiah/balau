@@ -5,17 +5,7 @@ namespace System;
 use System\Route;
 use System\Balau;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of controller
- *
- * @author user
- */
-abstract class Controller {
+class Controller {
 
     private $_viewFile;
     private $_loadView = true;
@@ -26,19 +16,20 @@ abstract class Controller {
         }
     }
 
-    public function __call($method, $parameters) {
+    public function __call() {
         echo '404';
     }
 
     public function call($destination, $parameters = array()) {
-        //search if @ exist. if not, just append index as method
+        //@TODO : search if @ exist. if not, just append index as method
         list($controller, $method) = explode('@', $destination);
-//        echo $controller . ' : ' . $method;
-        $action = "action_{$method}";
+        $action = "{$method}Action";
         if (is_callable(array($controller, $action), false, $callable_name)) {
-            $response = call_user_func_array(array($controller, $action), $parameters);
+            call_user_func_array(array($controller, 'beforeAction'), $parameters);
+            call_user_func_array(array($controller, $action), $parameters);
+            call_user_func_array(array($controller, 'afterAction'), $parameters);
         } else {
-            echo '404 : '.$callable_name;
+            echo '404 : ' . $callable_name;
         }
     }
 
@@ -48,6 +39,25 @@ abstract class Controller {
 
     public function afterAction() {
         
+    }
+
+    public function view($viewFile, $viewData = array()) {
+        $classPath = explode('_', get_called_class());
+        if (count($classPath) > 1) {
+            array_pop($classPath);
+        }
+        $classPath = implode(DIRECTORY_SEPARATOR, $classPath);
+        $publicViewFile = APP . 'views' . DIRECTORY_SEPARATOR . $viewFile . '.php';
+        $childViewFile = APP . 'modules' . DIRECTORY_SEPARATOR . $classPath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $viewFile . '.php';
+
+        extract($viewData);
+        if (is_readable($childViewFile)) {
+            include ($childViewFile);
+        } elseif (is_readable($publicViewFile)) {
+            include ($publicViewFile);
+        } else {
+            echo $viewFile . ' not found';
+        }
     }
 
     public function getViewFile() {

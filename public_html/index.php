@@ -39,8 +39,10 @@ function echo_memory_usage() {
     else
         echo round($mem_usage / 1048576, 2) . " megabytes";
 
-    echo "<br/>";
+   
 }
+ echo "<br/>";
 echo echo_memory_usage();
+ echo "<br/>";
 echo microtime(true) - BALAU_START;
 ob_flush();
