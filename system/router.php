@@ -73,7 +73,7 @@ class Router {
         $pattern = '#^' . $route . '#';
         if (preg_match($pattern, $uri, $parameters)) {
             return array_slice($parameters, 1);
-        }else{
+        } else {
             return false;
         }
     }
@@ -105,11 +105,11 @@ class Router {
             $match = $this->match($key, $this->_request['path']);
             if ($match !== false) {
                 if (is_string($callback)) {
-                    Controller::call($callback,$match);
+                    Controller::call($callback, $match);
                     //call_user_func_array(array($callback),$match);
                 } elseif ($callback instanceof Closure) {
                     //echo 'closure';
-                    call_user_func_array($callback,$match);
+                    call_user_func_array($callback, $match);
                 }
             }
         }

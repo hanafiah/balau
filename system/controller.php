@@ -9,6 +9,7 @@ class Controller {
 
     private $_viewFile;
     private $_loadView = true;
+    public $db;
 
     public function __construct() {
         if ($this->_loadView === true) {
@@ -16,7 +17,7 @@ class Controller {
         }
     }
 
-    public function __call() {
+    public function __call($method, $parameters) {
         echo '404';
     }
 
@@ -62,6 +63,12 @@ class Controller {
 
     public function getViewFile() {
         return $this->_viewFile;
+    }
+
+    public function model($modelName) {
+        include (APP . 'models' . DIRECTORY_SEPARATOR . $modelName . '.php');
+        
+        return new $modelName;
     }
 
 }
