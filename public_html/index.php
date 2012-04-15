@@ -20,7 +20,7 @@ require '../paths.php';
  * Load all config
  * --------------------------------------------------------------
  */
-require APP . 'config'.DIRECTORY_SEPARATOR.'config.php';
+require APP . 'config' . DIRECTORY_SEPARATOR . 'config.php';
 
 /**
  * --------------------------------------------------------------
@@ -38,11 +38,10 @@ function echo_memory_usage() {
         echo round($mem_usage / 1024, 2) . " kilobytes";
     else
         echo round($mem_usage / 1048576, 2) . " megabytes";
-
-   
 }
- echo "<br/>";
+
+echo "<br/>";
 echo echo_memory_usage();
- echo "<br/>";
+echo "<br/>";
 echo microtime(true) - BALAU_START;
 ob_flush();

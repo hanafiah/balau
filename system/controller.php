@@ -2,8 +2,6 @@
 
 namespace System;
 
-use System\Route;
-use System\Balau;
 
 class Controller {
 
