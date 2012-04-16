@@ -27,7 +27,7 @@ function generalAutoload($className) {
 
 function modulesAutoload($className) {
     //convert class name with underscode to DIRECTORY_SEPARATOR
-    $className = str_replace('_', DIRECTORY_SEPARATOR, $className);
+    $className = str_replace('__', DIRECTORY_SEPARATOR, $className);
     $filename = APP."modules/" . $className . ".php";
     if (is_readable($filename)) {
         require $filename;
