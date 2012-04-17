@@ -70,7 +70,7 @@ class Router {
         $search = array_keys($this->patterns);
         $replace = array_values($this->patterns);
         $route = str_replace($search, $replace, $route);
-        $pattern = '#^' . $route . '#';
+        $pattern = '#^' . $route . '$#';
         if (preg_match($pattern, $uri, $parameters)) {
             return array_slice($parameters, 1);
         } else {
@@ -100,6 +100,8 @@ class Router {
             default:
                 break;
         }
+
+
 
         foreach ($this->_routes['GET'] as $key => $callback) {
             $match = $this->match($key, $this->_request['path']);

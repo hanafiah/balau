@@ -4,8 +4,8 @@
  *  Autoload using psr-0 standard
  *  
  */
+
 function psr0($className) {
-    
     $className = ltrim($className, '\\');
     $fileName = '';
     $namespace = '';
@@ -18,8 +18,8 @@ function psr0($className) {
     require BASE.$fileName;
 }
 
-function generalAutoload($className) {
-    $filename = $className . ".php";
+function modelAutoload($className) {
+    $filename = APP."models/" . $className . ".php";
     if (is_readable($filename)) {
         require $filename;
     }
@@ -34,6 +34,6 @@ function modulesAutoload($className) {
     }
 }
 
-//spl_autoload_register("generalAutoload");
+spl_autoload_register("modelAutoload");
 spl_autoload_register("modulesAutoload");
 spl_autoload_register("psr0");

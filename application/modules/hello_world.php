@@ -10,12 +10,12 @@
  *
  * @author ibnuyahya
  */
+
 class hello_world extends System\Controller {
     public function indexAction() {
         
-        $t = self::model('mtest');
+        $t = self::model('mtests');
         $view['collection'] = $t->getCollections();
-        
         self::view('hello_world',$view);
     }
 

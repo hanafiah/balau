@@ -5,7 +5,7 @@
  *
  * @author ibnuyahya
  */
-class Mtest extends \Application\Models\Model {
+class Mtests extends \Application\Models\Model {
 
     public function __construct() {
         parent::__construct();

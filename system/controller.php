@@ -2,7 +2,6 @@
 
 namespace System;
 
-
 class Controller {
 
     private $_viewFile;
@@ -64,7 +63,7 @@ class Controller {
     }
 
     public function model($modelName) {
-        include (APP . 'models' . DIRECTORY_SEPARATOR . $modelName . '.php');
+        //include (APP . 'models' . DIRECTORY_SEPARATOR . $modelName . '.php');
         
         return new $modelName;
     }

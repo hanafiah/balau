@@ -5,6 +5,9 @@
  * Start timer
  * --------------------------------------------------------------
  */
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 ob_start();
 define('BALAU_START', microtime(true));
 
