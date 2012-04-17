@@ -100,12 +100,12 @@ class Router {
             default:
                 break;
         }
-
-
-
-        foreach ($this->_routes['GET'] as $key => $callback) {
+        $is404 = true;
+        foreach ($this->_routes[$this->_request['method']] as $key => $callback) {
             $match = $this->match($key, $this->_request['path']);
             if ($match !== false) {
+                $is404 = false;
+//                $match = array_merge($match,$this->_request['params']);
                 if (is_string($callback)) {
                     Controller::call($callback, $match);
                     //call_user_func_array(array($callback),$match);
@@ -114,6 +114,10 @@ class Router {
                     call_user_func_array($callback, $match);
                 }
             }
+        }
+
+        if ($is404) {
+            echo '404';
         }
 
         return $this;
